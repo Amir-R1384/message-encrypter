@@ -1,7 +1,7 @@
 {
-    "name": "secret-message-app",
+    "name": "message-encrypter",
     "version": "1.0.0",
-    "description": "This app makes you encypt and decrypt messages",
+    "description": "An app that lets you send secret messages",
     "main": "app.js",
     "scripts": {
         "test": "NODE_ENV=development nodemon app.js",
