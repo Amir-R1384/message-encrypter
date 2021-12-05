@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/icon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/tailwind.css">
+    <title>Message encrypter</title>
+</head>
+
+<body class="p-10">
+    <div class=" max-w-screen-xl mx-auto">
+        <h1 class="text-2xl font-semibold text-center mb-4">Message encrypter</h1>
+        <p class="text-center">An app that lets you send secret messages</p>
+
+        <div class="border-b-2 border-dashed border-gray-700 my-10"></div>
+
+        <div class="text-xl font-medium mb-5">Encypt</div>
+        <div class="flex gap-x-10 h-96 mb-10">
+            <textarea id="encryptTextarea" type="text"
+                placeholder="Write or paste your message and then, click Ctrl+Enter or Command+Enter."
+                class="flex-1 border rounded-lg bg-gray-100 p-3 resize-none w-1/2"></textarea>
+            <textarea disabled id="encryptedDiv"
+                placeholder="After, just copy the code and share to whoever you want to share it with."
+                class="flex-1 border rounded-lg bg-gray-100 p-3 resize-none relative"></textarea>
+        </div>
+
+        <div class="text-xl font-medium mb-5">Decrypt</div>
+        <div class="flex gap-x-10 h-96">
+            <textarea id="decryptTextarea" type="text"
+                placeholder="Paste the encrypted message and then, click Ctrl+Enter or Command+Enter."
+                class="flex-1 border rounded-lg bg-gray-100 p-3 resize-none w-1/2"></textarea>
+            <textarea id="decryptDiv" placeholder="After, You'll see the normal message."
+                class="flex-1 border rounded-lg bg-gray-100 p-3 resize-none" disabled></textarea>
+        </div>
+
+
+    </div>
+    <script>
+        const encryptTextarea = document.getElementById('encryptTextarea')
+        const encryptedDiv = document.getElementById('encryptedDiv')
+        const decryptTextarea = document.getElementById('decryptTextarea')
+        const decryptDiv = document.getElementById('decryptDiv')
+
+        encryptTextarea.addEventListener('keydown', async e => {
+            if (e.key !== 'Enter' || !e.metaKey) return
+
+            const message = encryptTextarea.value
+
+            const res = await fetch('/encrypt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
+            })
+
+            const { encrypted } = await res.json()
+
+            encryptedDiv.innerText = encrypted
+        })
+
+        decryptTextarea.addEventListener('keydown', async e => {
+            if (e.key !== 'Enter' || !e.metaKey) return
+
+            const encrypted = decryptTextarea.value
+
+            const res = await fetch('/decrypt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ encrypted })
+            })
+
+            const { decrypted } = await res.json()
+
+            decryptDiv.innerHTML = decrypted
+        })
+    </script>
+</body>
+
+</html>

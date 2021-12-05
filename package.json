@@ -1,0 +1,23 @@
+{
+    "name": "secret-message-app",
+    "version": "1.0.0",
+    "description": "This app makes you encypt and decrypt messages",
+    "main": "app.js",
+    "scripts": {
+        "test": "NODE_ENV=development nodemon app.js",
+        "start": "NODE_ENV=production node app.js",
+        "build": "npx tailwindcss -i public/styles.css -o public/tailwind.css --watch",
+        "regenerate": "node lib/regenerate.js"
+    },
+    "author": "Amir-R1384",
+    "license": "ISC",
+    "dependencies": {
+        "ejs": "^3.1.6",
+        "express": "^4.17.1",
+        "tailwindcss": "^2.2.19"
+    },
+    "devDependencies": {
+        "dotenv": "^10.0.0",
+        "nodemon": "^2.0.15"
+    }
+}
