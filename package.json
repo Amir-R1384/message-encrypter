@@ -5,9 +5,10 @@
     "main": "app.js",
     "scripts": {
         "test": "NODE_ENV=development nodemon app.js",
-        "start": "NODE_ENV=production node app.js",
-        "build": "npx tailwindcss -i public/styles.css -o public/tailwind.css --watch",
-        "regenerate": "node lib/regenerate.js"
+        "start": "bash ./scripts/start.sh",
+        "build": "npx tailwindcss -i ./public/styles.css -o ./public/tailwind.css",
+        "build-test": "npx tailwindcss -i ./public/styles.css -o ./public/tailwind.css --watch",
+        "regenerate": "node ./lib/regenerate.js"
     },
     "author": "Amir-R1384",
     "license": "ISC",
